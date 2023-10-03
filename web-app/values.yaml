@@ -1,0 +1,46 @@
+appEnv: qa
+
+env: null
+
+secrets:
+  rails_master_key: ""
+
+sidekiq:
+  cpu: 100m
+  ephemeralStorage: 512Mi
+  memory: 512Mi
+
+asambeni:
+  cpu: 100m
+  ephemeralStorage: 512Mi
+  memory: 512Mi
+
+db:
+  connectionName: ""
+
+configMap:
+  APP_NAME: null
+  RAILS_ENV: null
+  RAILS_LOG_TO_STDOUT: "true"
+  RAILS_MASTER_KEY:
+    secretKeyRef:
+      name: null
+      key: null
+
+image:
+  repository: "europe-west2-docker.pkg.dev/asambeni-main/asambeni-portal/asambeni-portal"
+  tag: "latest"
+  pullPolicy: Always
+
+ingress:
+    hosts:
+      - "xyz.com"
+
+service:
+    type: ClusterIP
+    port: 80
+    protocol: TCP
+    targetPort: 4500
+
+global:
+  ipName: null

@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{ include "web-app.base_labels" . | indent 2 }}
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 10
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      {{ include "web-app.selector_labels" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+        {{ include "web-app.base_labels" . | indent 6 }}
+        {{ include "web-app.selector_labels" . | indent 6 }}
+    spec:
+      containers:
+        - name: redis
+          resources:
+            limits:
+              cpu: 200m
+              ephemeral-storage: 256Mi
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              ephemeral-storage: 256Mi
+              memory: 256Mi
+          image: redis:7.0.8-alpine
+          command: [ "redis-server" ]
+          volumeMounts:
+            - mountPath: /data
+              name: redis-data
+        - name: cloud-sql-proxy
+          resources:
+            limits:
+              cpu: 100m
+              ephemeral-storage: 256Mi
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              ephemeral-storage: 256Mi
+              memory: 256Mi
+          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.1.0
+          args:
+            - "--structured-logs"
+            - "--port=3306"
+            - "--credentials-file=/var/secrets/google/key.json"
+            - "{{ .Values.db.connectionName }}"
+          securityContext:
+            runAsNonRoot: true
+          env:
+            - name: GOOGLE_APPLICATIONS_CREDENTIALS
+              value: /var/secrets/google/key.json
+          volumeMounts:
+            - mountPath: /var/secrets/google
+              name: sa-credentials
+              readOnly: true
+        - name: asambeni
+          resources:
+            limits:
+              cpu: {{ .Values.asambeni.cpu }}
+              ephemeral-storage: {{ .Values.asambeni.ephemeralStorage }}
+              memory: {{ .Values.asambeni.memory }}
+            requests:
+              cpu: {{ .Values.sidekiq.cpu }}
+              ephemeral-storage: {{ .Values.sidekiq.ephemeralStorage }}
+              memory: {{ .Values.sidekiq.memory }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-configmap
+            - secretRef:
+                name: {{ .Release.Name }}-secrets
+        - name: sidekiq
+          resources:
+            limits:
+              cpu: {{ .Values.sidekiq.cpu }}
+              ephemeral-storage: {{ .Values.sidekiq.ephemeralStorage }}
+              memory: {{ .Values.sidekiq.memory }}
+            requests:
+              cpu: {{ .Values.sidekiq.cpu }}
+              ephemeral-storage: {{ .Values.sidekiq.ephemeralStorage }}
+              memory: {{ .Values.sidekiq.memory }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-configmap
+            - secretRef:
+                name: {{ .Release.Name }}-secrets
+      terminationGracePeriodSeconds: 300
+      volumes:
+        - name: sa-credentials
+          secret:
+            secretName: autopilot-sa-key
+        - name: redis-data
+          emptyDir: {}

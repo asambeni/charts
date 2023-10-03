@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.service.type | lower }}"
+  labels:
+    {{ include "web-app.base_labels" . | indent 2 }}
+spec:
+  ports:
+    - port: {{ .Values.service.port }}
+      protocol: {{ .Values.service.protocol }}
+      targetPort: {{ .Values.service.targetPort }}
+  selector:
+    {{ include "web-app.selector_labels" . | indent 4 }}
+  sessionAffinity: None
+  type: {{ .Values.service.type }}

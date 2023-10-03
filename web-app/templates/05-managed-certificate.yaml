@@ -1,0 +1,9 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: {{ .Release.Name }}-certificate
+spec:
+  domains:
+    {{- range .Values.ingress.hosts }}
+    - {{ . }}
+    {{- end }}
