@@ -21,11 +21,9 @@ db:
 configMap:
   APP_NAME: null
   RAILS_ENV: null
+  DATABASE_HOST: null
+  DATABASE_PORT: null
   RAILS_LOG_TO_STDOUT: "true"
-  RAILS_MASTER_KEY:
-    secretKeyRef:
-      name: null
-      key: null
 
 image:
   repository: "europe-west2-docker.pkg.dev/asambeni-main/asambeni-portal/asambeni-portal"
@@ -44,3 +42,16 @@ service:
 
 global:
   ipName: null
+
+postInstall:
+  container:
+    command:
+      - "rails"
+      - "db:migrate"
+
+    cpu: 100m
+    ephemeralStorage: 512Mi
+    memory: 512Mi
+
+preInstall:
+  command: "echo 'Done!'"

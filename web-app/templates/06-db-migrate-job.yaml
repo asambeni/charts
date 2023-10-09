@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Release.Name }}-post-install"
+  labels:
+    {{- include "web-app.base_labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install, post-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: "{{ .Release.Name }}-post-install"
+      labels:
+        {{- include "web-app.base_labels" . | nindent 4 }}
+    spec:
+      restartPolicy: Never
+      shareProcessNamespace: true
+      containers:
+        - name: "{{ .Release.Name }}-post-install"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-configmap
+            - secretRef:
+                name: {{ .Release.Name }}-secrets
+          command:
+            - "rails"
+            - "db:migrate"
+          resources:
+            limits:
+              cpu: {{ .Values.postInstall.container.cpu }}
+              ephemeral-storage: {{ .Values.postInstall.container.ephemeralStorage }}
+              memory: {{ .Values.postInstall.container.memory }}
+            requests:
+              cpu: {{ .Values.postInstall.container.cpu }}
+              ephemeral-storage: {{ .Values.postInstall.container.ephemeralStorage }}
+              memory: {{ .Values.postInstall.container.memory }}
+      volumes:
+        - name: sa-credentials
+          secret:
+            secretName: autopilot-sa-key

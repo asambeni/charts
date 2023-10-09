@@ -6,5 +6,7 @@ metadata:
     {{ include "web-app.base_labels" . | indent 2 }}
 data:
   APP_NAME: "{{ .Values.configMap.APP_NAME }}"
+  DATABASE_HOST: "{{ .Values.configMap.DATABASE_HOST }}"
+  DATABASE_PORT: "{{ .Values.configMap.DATABASE_PORT }}"
   RAILS_ENV: "{{ .Values.configMap.RAILS_ENV }}"
   RAILS_LOG_TO_STDOUT: "{{ .Values.configMap.RAILS_LOG_TO_STDOUT }}"

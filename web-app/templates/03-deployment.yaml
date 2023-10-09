@@ -36,31 +36,6 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: redis-data
-        - name: cloud-sql-proxy
-          resources:
-            limits:
-              cpu: 100m
-              ephemeral-storage: 256Mi
-              memory: 256Mi
-            requests:
-              cpu: 100m
-              ephemeral-storage: 256Mi
-              memory: 256Mi
-          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.1.0
-          args:
-            - "--structured-logs"
-            - "--port=3306"
-            - "--credentials-file=/var/secrets/google/key.json"
-            - "{{ .Values.db.connectionName }}"
-          securityContext:
-            runAsNonRoot: true
-          env:
-            - name: GOOGLE_APPLICATIONS_CREDENTIALS
-              value: /var/secrets/google/key.json
-          volumeMounts:
-            - mountPath: /var/secrets/google
-              name: sa-credentials
-              readOnly: true
         - name: asambeni
           resources:
             limits:
