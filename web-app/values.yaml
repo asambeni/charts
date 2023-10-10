@@ -5,6 +5,8 @@ env: null
 secrets:
   rails_master_key: ""
 
+replicaCount: 1
+
 sidekiq:
   cpu: 100m
   ephemeralStorage: 512Mi

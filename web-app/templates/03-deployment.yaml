@@ -5,7 +5,7 @@ metadata:
   labels:
     {{ include "web-app.base_labels" . | indent 2 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   strategy:
     rollingUpdate:
       maxSurge: 10
