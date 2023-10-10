@@ -43,8 +43,8 @@ spec:
               ephemeral-storage: {{ .Values.asambeni.ephemeralStorage }}
               memory: {{ .Values.asambeni.memory }}
             requests:
-              cpu: {{ .Values.sidekiq.cpu }}
-              ephemeral-storage: {{ .Values.sidekiq.ephemeralStorage }}
+              cpu: {{ .Values.asambeni.cpu }}
+              ephemeral-storage: {{ .Values.asambeni.ephemeralStorage }}
               memory: {{ .Values.sidekiq.memory }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
