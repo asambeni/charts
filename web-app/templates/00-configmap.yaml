@@ -10,3 +10,4 @@ data:
   DATABASE_PORT: "{{ .Values.configMap.DATABASE_PORT }}"
   RAILS_ENV: "{{ .Values.configMap.RAILS_ENV }}"
   RAILS_LOG_TO_STDOUT: "{{ .Values.configMap.RAILS_LOG_TO_STDOUT }}"
+  SCORE_URL: "{{ .Values.configMap.SCORE_URL }}"

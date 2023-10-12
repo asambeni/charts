@@ -6,6 +6,8 @@ secrets:
   rails_master_key: ""
 
 replicaCount: 1
+pdb:
+  minAvailable: 1
 
 sidekiq:
   cpu: 100m
@@ -26,6 +28,7 @@ configMap:
   DATABASE_HOST: null
   DATABASE_PORT: null
   RAILS_LOG_TO_STDOUT: "true"
+  SCORE_URL: "https://scoretest.softycomp.co.za/SoftyCompBureauAPI/api"
 
 image:
   repository: "europe-west2-docker.pkg.dev/asambeni-main/asambeni-portal/asambeni-portal"

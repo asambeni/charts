@@ -72,6 +72,7 @@ spec:
             - secretRef:
                 name: {{ .Release.Name }}-secrets
       terminationGracePeriodSeconds: 300
+
       volumes:
         - name: sa-credentials
           secret:
