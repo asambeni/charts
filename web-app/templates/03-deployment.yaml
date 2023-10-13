@@ -45,7 +45,7 @@ spec:
             requests:
               cpu: {{ .Values.asambeni.cpu }}
               ephemeral-storage: {{ .Values.asambeni.ephemeralStorage }}
-              memory: {{ .Values.sidekiq.memory }}
+              memory: {{ .Values.asambeni.memory }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
@@ -66,13 +66,15 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
+          env:
+            - name: REDIS_URL
+              value: redis://localhost:6379/0
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-configmap
             - secretRef:
                 name: {{ .Release.Name }}-secrets
-      terminationGracePeriodSeconds: 300
-
+      terminationGracePeriodSeconds: 30
       volumes:
         - name: sa-credentials
           secret:

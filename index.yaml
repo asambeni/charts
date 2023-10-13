@@ -3,7 +3,18 @@ entries:
   web-app:
   - apiVersion: v2
     appVersion: 1.16.1
-    created: "2023-10-12T14:56:05.768435+02:00"
+    created: "2023-10-13T17:07:09.471377+02:00"
+    description: A helm Chart to deploy Asambeni Web App to k8s
+    digest: 27449322fe296f5a575bfad9b67a7f918ffb08e8ec3922151908a2d1ca41033a
+    icon: https://res.cloudinary.com/asambeni/image/upload/b_rgb:1f122f/v1688586794/asambeni_data/shared/asambeni-logo.png
+    name: web-app
+    type: application
+    urls:
+    - https://asambeni.github.io/charts/web-app-0.5.0.tgz
+    version: 0.5.0
+  - apiVersion: v2
+    appVersion: 1.16.1
+    created: "2023-10-13T17:07:09.471154+02:00"
     description: A helm Chart to deploy Asambeni Web App to k8s
     digest: 5b70eb7973755de17ebad8da6738bef854b014447fbaf2e57d6f967c8c096cc9
     icon: https://res.cloudinary.com/asambeni/image/upload/b_rgb:1f122f/v1688586794/asambeni_data/shared/asambeni-logo.png
@@ -14,7 +25,7 @@ entries:
     version: 0.4.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-10-12T14:56:05.768185+02:00"
+    created: "2023-10-13T17:07:09.47065+02:00"
     description: A helm Chart to deploy Asambeni Web App to k8s
     digest: fe769fc6879ab6a1b8e42fbaaf5e0f3237b0c1997d6c4cca4286a98327affaa6
     icon: https://res.cloudinary.com/asambeni/image/upload/b_rgb:1f122f/v1688586794/asambeni_data/shared/asambeni-logo.png
@@ -25,7 +36,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-10-12T14:56:05.7677+02:00"
+    created: "2023-10-13T17:07:09.470265+02:00"
     description: A helm Chart to deploy Asambeni Web App to k8s
     digest: ac20ab51cd9fe0d1b6baff87163b3bc32d7445e232f21bfd4c614b8e799c8ebb
     icon: https://res.cloudinary.com/asambeni/image/upload/b_rgb:1f122f/v1688586794/asambeni_data/shared/asambeni-logo.png
@@ -36,7 +47,7 @@ entries:
     version: 0.3.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-10-12T14:56:05.767207+02:00"
+    created: "2023-10-13T17:07:09.469783+02:00"
     description: A helm Chart to deploy Asambeni Web App to k8s
     digest: 9f1fc4828786e4a5814ee5113658ba61536a447dbfa318a25f1f80a52513c57b
     icon: https://res.cloudinary.com/asambeni/image/upload/b_rgb:1f122f/v1688586794/asambeni_data/shared/asambeni-logo.png
@@ -47,7 +58,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-10-12T14:56:05.76638+02:00"
+    created: "2023-10-13T17:07:09.469238+02:00"
     description: A helm Chart to deploy Asambeni Web App to k8s
     digest: 28bd1e9b82ab5baaab6ced87f5df5bf388b9ad87924d1279326f585bfe754655
     icon: https://res.cloudinary.com/asambeni/image/upload/b_rgb:1f122f/v1688586794/asambeni_data/shared/asambeni-logo.png
@@ -58,7 +69,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-10-12T14:56:05.765745+02:00"
+    created: "2023-10-13T17:07:09.46857+02:00"
     description: A helm Chart to deploy Asambeni Web App to k8s
     digest: 1817d4c1e1d562d76249771f59209e4b7cc82f1785ca2aee8b35c95420f21bd5
     icon: https://res.cloudinary.com/asambeni/image/upload/b_rgb:1f122f/v1688586794/asambeni_data/shared/asambeni-logo.png
@@ -67,4 +78,4 @@ entries:
     urls:
     - https://asambeni.github.io/charts/web-app-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-12T14:56:05.764579+02:00"
+generated: "2023-10-13T17:07:09.467984+02:00"

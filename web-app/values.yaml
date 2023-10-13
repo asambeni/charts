@@ -8,6 +8,8 @@ secrets:
 replicaCount: 1
 pdb:
   minAvailable: 1
+hpa:
+  minReplicas: 1
 
 sidekiq:
   cpu: 100m
